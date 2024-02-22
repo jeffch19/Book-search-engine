@@ -3,7 +3,7 @@ const path = require('path');
 const db = require('./config/connection');
 const routes = require('./routes');
 const { ApolloServer } = require('apollo-server-express');
-const { typeDefs, resolvers } = require('./schemas'); 
+const { typeDefs, resolvers } = require('./schemas');
 
 const app = express();
 const PORT = process.env.PORT ||  3001;
@@ -23,11 +23,14 @@ const server = new ApolloServer({
   context: ({ req }) => ({ req }), // Pass the request object to the context
 });
 
-// Apply Apollo Server as middleware to the Express app
-server.applyMiddleware({ app });
+// Start the Apollo Server and apply middleware to the Express app
+(async () => {
+  await server.start();
+  server.applyMiddleware({ app });
 
-app.use(routes);
+  app.use(routes);
 
-db.once('open', () => {
-  app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
-});
+  db.once('open', () => {
+    app.listen(PORT, () => console.log(`🌍 Now listening on localhost:${PORT}`));
+  });
+})();
