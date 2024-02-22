@@ -6,7 +6,7 @@ import { ApolloClient, InMemoryCache } from '@apollo/client';
 
 // Create an Apollo Client instance
 const client = new ApolloClient({
-  uri: '', // add my endpoint 
+  uri: 'http://localhost:3001/graphql', // add my endpoint 
   cache: new InMemoryCache(),
 });
 
