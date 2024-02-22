@@ -18,3 +18,13 @@ export const GET_ME = gql`
     }
   }
 `;
+
+export const REMOVE_BOOK = gql`
+  mutation RemoveBook($bookId: ID!) {
+    removeBook(bookId: $bookId) {
+      _id
+      title
+      authors
+    }
+  }
+`;
