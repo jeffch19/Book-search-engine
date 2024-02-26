@@ -1,6 +1,6 @@
 const { User, Book } = require('../models'); // Assuming you have User and Book models defined
 const { signToken } = require('../utils/auth'); // Import the signToken function from your auth.js
-const { AuthenticationError } = require('apollo-server-express');
+const { AuthenticationError } = require('@apollo/server');
 
 const resolvers = {
   Query: {
