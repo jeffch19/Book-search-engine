@@ -1,6 +1,6 @@
 const { User, Book } = require('../models'); // Assuming you have User and Book models defined
-const { signToken } = require('../utils/auth'); // Import the signToken function from your auth.js
-const { AuthenticationError } = require('@apollo/server');
+const { signToken, AuthenticationError } = require('../utils/auth'); // Import the signToken function from your auth.js
+
 
 const resolvers = {
   Query: {
@@ -13,7 +13,7 @@ const resolvers = {
         return userData;
       }
 
-      throw new AuthenticationError('Not logged in');
+      throw AuthenticationError('Not logged in');
     },
   },
   Mutation: {
@@ -21,13 +21,13 @@ const resolvers = {
       const user = await User.findOne({ email });
 
       if (!user) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw AuthenticationError('Incorrect credentials');
       }
 
       const correctPw = await user.isCorrectPassword(password);
 
       if (!correctPw) {
-        throw new AuthenticationError('Incorrect credentials');
+        throw AuthenticationError('Incorrect credentials');
       }
 
       const token = signToken(user);
@@ -35,8 +35,9 @@ const resolvers = {
     },
     addUser: async (parent, args) => {
       const user = await User.create(args);
+      console.log(user);
       const token = signToken(user);
-
+      console.log(token,user,'added');
       return { token, user };
     },
     saveBook: async (parent, { authors, description, title, bookId, image, link }, context) => {
@@ -50,7 +51,7 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError('You need to be logged in!');
     },
     removeBook: async (parent, { bookId }, context) => {
       if (context.user) {
@@ -63,7 +64,7 @@ const resolvers = {
         return updatedUser;
       }
 
-      throw new AuthenticationError('You need to be logged in!');
+      throw AuthenticationError('You need to be logged in!');
     },
   },
 };
