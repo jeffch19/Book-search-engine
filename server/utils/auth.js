@@ -16,11 +16,12 @@ module.exports = {
     let token = req.body.token || req.query.token || req.headers.authorization;
     if (req.headers.authorization) {
       // Extract token from the request body
-      
+      token = token.split(' ').pop().trim();
+    } 
   
       // ["Bearer", "<tokenvalue>"]
       
-        token = token.split(' ').pop().trim();
+        
       
   
       if (!token) {
@@ -32,10 +33,9 @@ module.exports = {
         const { data } = jwt.verify(token, secret, { maxAge: expiration });
         req.user = data;
       } catch {
-        console.log('Invalid token');
-        return res.status(400).json({ message: 'invalid token!' });
+        console.log('Invalid token');        
       }
-    }
+    
   
     // send to next endpoint
   return req 
