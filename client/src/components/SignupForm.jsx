@@ -38,7 +38,7 @@ useEffect(() => {
       });
 
      
-      console.log(user);
+      // console.log(user);
       Auth.login(data.addUser.token);
     } catch (err) {
       console.error(err);
