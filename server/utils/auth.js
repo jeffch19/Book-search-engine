@@ -11,7 +11,7 @@ module.exports = {
       code: 'UNAUTHENTICATED',
     },
   }),
-  authMiddleware: function (req) {
+  authMiddleware: function ({req}) {
     // Check if the request is a GraphQL request
     let token = req.body.token || req.query.token || req.headers.authorization;
     if (req.headers.authorization) {
