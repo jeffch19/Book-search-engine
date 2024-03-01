@@ -9,7 +9,8 @@ import {
 import Auth from '../utils/auth';
 import { removeBookId } from '../utils/localStorage';
 import { useQuery, useMutation } from '@apollo/client';
-import { GET_ME, REMOVE_BOOK } from '../graphql/queries';
+import { GET_ME } from '../graphql/queries';
+import { REMOVE_BOOK } from '../graphql/mutations';
 
 const SavedBooks = () => {
   const { loading, error, data: userData } = useQuery(GET_ME);
